@@ -12,9 +12,10 @@ class ChecklistViewController: UITableViewController {
     
     var items = [ChecklistItem]()
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
         
         let item1 = ChecklistItem()
         item1.text = "Walk the dog"
@@ -40,6 +41,24 @@ class ChecklistViewController: UITableViewController {
 
     }
 
+    //MARK:- Actions
+    @IBAction func addItem(_ sender: Any) {
+        let newRowIndex = items.count
+        
+        let item = ChecklistItem()
+        item.text = "I am new row"
+        item.checked = true
+        items.append(item)
+        
+        let indexPath = IndexPath(row: newRowIndex, section: 0)
+
+        //we set indexPath to a var because we can pass in more than one value if we want to populate the data.
+        let indexPaths = [indexPath]
+        
+        //when this is executed, tableView.insertRows(at:with:), the tableView makes a new cell for this new row by calling tableView(_:cellForRowAt:) data source method
+        tableView.insertRows(at: indexPaths, with: .automatic)
+    
+    }
     
     // MARK:- Table View Data Source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -69,6 +88,14 @@ class ChecklistViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        items.remove(at: indexPath.row)
+        
+        let indexPaths = [indexPath]
+        tableView.deleteRows(at: indexPaths, with: .automatic)
+    }
+    
+    //MARK:- Configure Methods
     func configureCheckmark(for cell: UITableViewCell, with item: ChecklistItem) {
         
         if item.checked {
