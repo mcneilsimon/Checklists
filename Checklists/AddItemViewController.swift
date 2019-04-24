@@ -8,15 +8,51 @@
 
 import UIKit
 
-class AddItemViewController: UITableViewController {
+class AddItemViewController: UITableViewController, UITextFieldDelegate {
 
+    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var doneBarButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationItem.largeTitleDisplayMode = .never
     }
     
-    //MARK:- Tells the navigation controller to close the Add Item screen with an animation to go back to the previous screen, 
+    //View controller receives the viewWillAppear() message just before it becomes visible
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        textField.becomeFirstResponder()
+    }
+    
+    //MARK:- Table View Delegates
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        return nil
+    }
+    
+    //MARK:- Text Field Delegates
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        let oldText = textField.text!
+        let stringRange = Range(range, in: oldText)!
+        let newText = oldText.replacingCharacters(in: stringRange, with: string)
+        
+        /* Another way to write this
+        if newText.isEmpty {
+            doneBarButton.isEnabled = false
+        } else {
+            doneBarButton.isEnabled = true
+        } */
+        doneBarButton.isEnabled = !newText.isEmpty
+        
+        return true
+    }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        doneBarButton.isEnabled = false
+        return true
+    }
+    
     @IBAction func cancel() {
         navigationController?.popViewController(animated: true)
     }
