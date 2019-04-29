@@ -18,27 +18,40 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="ChecklistItem" id="eII-CS-hyc">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="ChecklistItem" id="eII-CS-hyc">
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eII-CS-hyc" id="fQG-ne-xFb">
-                                    <rect key="frame" x="0.0" y="0.0" width="280" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="252" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="50" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="acB-NH-tvO">
-                                            <rect key="frame" x="16" y="11" width="264" height="21"/>
+                                            <rect key="frame" x="31" y="12" width="216" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="51" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="√" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ad-hx-N8K">
+                                            <rect key="frame" x="11" y="4" width="19" height="34"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="22"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="acB-NH-tvO" secondAttribute="trailing" id="2Q4-XC-fQg"/>
-                                        <constraint firstItem="acB-NH-tvO" firstAttribute="leading" secondItem="fQG-ne-xFb" secondAttribute="leading" constant="16" id="E4J-sT-dTZ"/>
-                                        <constraint firstAttribute="bottom" secondItem="acB-NH-tvO" secondAttribute="bottom" constant="11.5" id="E8T-aP-2V1"/>
-                                        <constraint firstItem="acB-NH-tvO" firstAttribute="top" secondItem="fQG-ne-xFb" secondAttribute="top" constant="11" id="ZIm-Oh-SSY"/>
+                                        <constraint firstAttribute="trailing" secondItem="acB-NH-tvO" secondAttribute="trailing" constant="5" id="2Q4-XC-fQg"/>
+                                        <constraint firstAttribute="bottom" secondItem="3Ad-hx-N8K" secondAttribute="bottom" constant="5.5" id="5zn-8k-rD7"/>
+                                        <constraint firstItem="acB-NH-tvO" firstAttribute="leading" secondItem="fQG-ne-xFb" secondAttribute="leading" constant="31" id="E4J-sT-dTZ"/>
+                                        <constraint firstAttribute="bottom" secondItem="acB-NH-tvO" secondAttribute="bottom" constant="10.5" id="E8T-aP-2V1"/>
+                                        <constraint firstItem="acB-NH-tvO" firstAttribute="leading" secondItem="3Ad-hx-N8K" secondAttribute="trailing" constant="1" id="IDc-Nm-1mn"/>
+                                        <constraint firstItem="3Ad-hx-N8K" firstAttribute="leading" secondItem="fQG-ne-xFb" secondAttribute="leading" constant="11" id="YVn-tK-mgR"/>
+                                        <constraint firstItem="acB-NH-tvO" firstAttribute="top" secondItem="fQG-ne-xFb" secondAttribute="top" constant="12" id="ZIm-Oh-SSY"/>
+                                        <constraint firstItem="3Ad-hx-N8K" firstAttribute="top" secondItem="fQG-ne-xFb" secondAttribute="top" constant="4" id="k6A-eg-ncp"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="Fx4-AZ-mBl" kind="show" identifier="EditItem" trigger="accessoryAction" id="fbr-w2-2NE"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -56,12 +69,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ff8-oH-vpZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="922.5" y="92.957746478873247"/>
+            <point key="canvasLocation" x="933.75" y="-80.281690140845072"/>
         </scene>
         <!--Add Item-->
         <scene sceneID="fWf-vP-suW">
             <objects>
-                <tableViewController id="Fx4-AZ-mBl" customClass="AddItemViewController" customModule="Checklists" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="Fx4-AZ-mBl" customClass="ItemDetailViewController" customModule="Checklists" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="hwT-DW-epU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -80,7 +93,7 @@
                                                     <rect key="frame" x="16" y="6" width="288" height="30"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                                     <connections>
                                                         <action selector="done" destination="Fx4-AZ-mBl" eventType="editingDidEndOnExit" id="XOZ-Um-Anz"/>
                                                         <outlet property="delegate" destination="Fx4-AZ-mBl" id="RaV-MB-brn"/>
@@ -143,4 +156,7 @@
             <point key="canvasLocation" x="-75" y="92.957746478873247"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="fbr-w2-2NE"/>
+    </inferredMetricsTieBreakers>
 </document>

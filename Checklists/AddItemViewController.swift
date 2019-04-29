@@ -12,23 +12,34 @@ import UIKit
 protocol AddItemViewControllerDelegate: class {
     
     //user presses cancel
-    func addItemViewControllerDidCancel(_ controller: AddItemViewController)
+    func addItemViewControllerDidCancel(_ controller: ItemDetailViewController)
     
     //user presses done
-    func addItemViewController(_ controller: AddItemViewController, didFinishAdding item: ChecklistItem)
+    func addItemViewController(_ controller: ItemDetailViewController, didFinishAdding item: ChecklistItem)
+    
+    //user selected the edit button
+    func addItemViewController(_ controller: ItemDetailViewController, didFinishEditing item: ChecklistItem)
 }
 
-class AddItemViewController: UITableViewController, UITextFieldDelegate {
+class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
 
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
     
     weak var delegate: AddItemViewControllerDelegate?
     
+    var itemToEdit: ChecklistItem?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationItem.largeTitleDisplayMode = .never
+        
+        if let itemToEdit = itemToEdit {
+            title = "Edit Item"
+            textField.text = itemToEdit.text
+            doneBarButton.isEnabled = true
+        }
     }
     
     //View controller receives the viewWillAppear() message just before it becomes visible
@@ -70,8 +81,13 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
     }
     
     @IBAction func done() {
-        let item = ChecklistItem()
-        item.text = textField.text!
-        delegate?.addItemViewController(self, didFinishAdding: item)
+        if let item = itemToEdit {
+            item.text = textField.text!
+            delegate?.addItemViewController(self, didFinishEditing: item)
+        } else {
+            let item = ChecklistItem()
+            item.text = textField.text!
+            delegate?.addItemViewController(self, didFinishAdding: item)
+        }
     }
 }
