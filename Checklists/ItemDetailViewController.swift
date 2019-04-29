@@ -9,8 +9,11 @@
 import UIKit
 
 protocol ItemDetailViewControllerDelegate: class {
+    
     func itemDetailViewControllerDidCancel(_ controller: ItemDetailViewController)
+    
     func itemDetailViewController(_ controller: ItemDetailViewController, didFinishAdding item: ChecklistItem)
+    
     func itemDetailViewController(_ controller: ItemDetailViewController, didFinishEditing item: ChecklistItem)
 }
 
@@ -23,6 +26,7 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
         if let item = itemToEdit {
             title = "Edit Item"
             textField.text = item.text

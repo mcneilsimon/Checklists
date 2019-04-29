@@ -59,7 +59,7 @@
                             <outlet property="delegate" destination="DdQ-yf-eu4" id="0CU-SF-kQe"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Checklists" id="VsG-Jy-9p8">
+                    <navigationItem key="navigationItem" title="Checklists" largeTitleDisplayMode="always" id="VsG-Jy-9p8">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="jKZ-9L-Mq6">
                             <connections>
                                 <segue destination="Fx4-AZ-mBl" kind="show" identifier="Add Item" id="TPH-bP-ThD"/>
@@ -116,7 +116,7 @@
                             <outlet property="delegate" destination="Fx4-AZ-mBl" id="REM-O1-Ao4"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Add Item" id="oEk-jE-OV0">
+                    <navigationItem key="navigationItem" title="Add Item" largeTitleDisplayMode="never" id="oEk-jE-OV0">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="M00-NM-vqq">
                             <connections>
                                 <action selector="cancel" destination="Fx4-AZ-mBl" id="nXC-lB-Lfg"/>
