@@ -11,17 +11,17 @@ import UIKit
 class ChecklistViewController: UITableViewController, ItemDetailViewControllerDelegate {
     
     var items = [ChecklistItem]()
+    var checklist: Checklist!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationController?.navigationBar.prefersLargeTitles = true
-        
+        navigationItem.largeTitleDisplayMode = .never
         print("Documents folder is \(documentsDirectory())")
         print("Data file path is \(dataFilePath())")
         
         //load items
         loadCheckListItems()
+        title = checklist.name
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -93,7 +93,7 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
     }
     
     
-    //MARK:- AddItemViewController Delegates
+    //MARK:- ItemDetailViewController Delegates
     func itemDetailViewControllerDidCancel(_ controller: ItemDetailViewController) {
         navigationController?.popViewController(animated: true)
     }
