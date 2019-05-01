@@ -8,9 +8,10 @@
 
 import UIKit
 
-class Checklist: NSObject {
+class Checklist: NSObject, Codable {
     
     var name: String
+    var items = [ChecklistItem]()
     
     //Inits are also usefull for when we create an object and we want that object to have a property
     init(name: String) {

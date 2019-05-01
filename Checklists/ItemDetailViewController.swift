@@ -6,6 +6,8 @@
 //  Copyright © 2019 SimonMcNeil. All rights reserved.
 //
 
+
+/* This view will be presented as either adding or editing a to do item */
 import UIKit
 
 protocol ItemDetailViewControllerDelegate: class {
@@ -18,6 +20,7 @@ protocol ItemDetailViewControllerDelegate: class {
 }
 
 class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
+    
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
     @IBOutlet weak var textField: UITextField!
     
