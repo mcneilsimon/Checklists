@@ -50,9 +50,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //MARK:- Helper Methods
     func saveData() {
         dataModel.saveChecklists()
-        
     }
-
-
 }
 

@@ -7,8 +7,6 @@
 //
 
 /* Displays all the To Do items after selecting a category in the AllListView Controller */
-
-
 import UIKit
 
 class ChecklistViewController: UITableViewController, ItemDetailViewControllerDelegate {

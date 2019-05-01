@@ -14,6 +14,18 @@ class DataModel {
     
     init() {
         loadChecklists()
+        registerDefaults()
+        handleFirstTime()
+    }
+    
+    //stores index of selected checklist to navigate to checklists to-do when app re-launches after a crash
+    var indexOfSelectedChecklist: Int {
+        get {
+            return UserDefaults.standard.integer(forKey: "ChecklistIndex")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "ChecklistIndex")
+        }
     }
     
     //MARK:- Data Persistance (Saving and Loading)
@@ -46,6 +58,27 @@ class DataModel {
             } catch {
                 print("Error encoding array: \(error.localizedDescription)")
             }
+        }
+    }
+    
+    func registerDefaults() {
+        //checks for row index and see if user has launched the app before.
+        let dictionary = ["ChecklistIndex": -1, "FirstTime": true] as [String: Any]
+        UserDefaults.standard.register(defaults: dictionary)
+    }
+    
+    func handleFirstTime() {
+        //retrieve the FirstTime value in our user defaults
+        let userDefaults = UserDefaults.standard
+        let firstTime = userDefaults.bool(forKey: "FirstTime")
+        
+        if firstTime {
+            let checklist = Checklist(name: "List")
+            lists.append(checklist)
+            
+            indexOfSelectedChecklist = 0
+            userDefaults.set(false, forKey: "FirstTime")
+            userDefaults.synchronize()
         }
     }
 }

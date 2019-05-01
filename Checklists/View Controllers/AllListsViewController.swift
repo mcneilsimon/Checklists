@@ -9,7 +9,7 @@
 /* This view will present the categories that a user has created in a tableView, it is the initial view that is loaded */
 import UIKit
 
-class AllListsViewController: UITableViewController, ListDetailViewControllerDelegate {
+class AllListsViewController: UITableViewController, ListDetailViewControllerDelegate, UINavigationControllerDelegate {
 
     let cellIdentifier = "ChecklistCell"
     var dataModel: DataModel!
@@ -18,12 +18,24 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = true
         
-        
         /* The line below registers our cell identifier with the table view so that the table view
            knows which cell class should be used to create a new table view cell instance when a
            dequeue request comes in with that cell identifier instead of doing this in the storyboard */
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         
+    }
+    
+    //UIKit automatically calls this method after the view controller becomes visible
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.delegate = self
+        
+        let index = dataModel.indexOfSelectedChecklist
+        
+        if index >= 0 && index < dataModel.lists.count {
+            let checklist = dataModel.lists[index]
+            performSegue(withIdentifier: "ShowChecklist", sender: checklist)
+        }
     }
     
     //MARK:- TableView Data Source and Delegate methods
@@ -48,6 +60,8 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        dataModel.indexOfSelectedChecklist = indexPath.row
+        
         let checklist = dataModel.lists[indexPath.row]
         performSegue(withIdentifier: "ShowChecklist", sender: checklist)
     }
@@ -96,5 +110,13 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
             }
         }
         navigationController?.popViewController(animated: true)
+    }
+    
+    //MARK:- Navigation Controller Delegates
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        //Was the back button tapped
+        if viewController === self {
+            dataModel.indexOfSelectedChecklist = -1
+        }
     }
 }

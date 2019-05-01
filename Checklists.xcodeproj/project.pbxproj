@@ -47,6 +47,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D090C0922797BF6006FA633 /* Data Models */ = {
+			isa = PBXGroup;
+			children = (
+				2DB336CF2277BC79007D3363 /* Checklist.swift */,
+				2DCC0DC3226F89F200DC3D04 /* ChecklistItem.swift */,
+				2D090C072278E2EA006FA633 /* DataModel.swift */,
+			);
+			path = "Data Models";
+			sourceTree = "<group>";
+		};
+		2D090C0A22797C0D006FA633 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2DB336CD2277AEF9007D3363 /* AllListsViewController.swift */,
+				2DCC0DB3226E8BC500DC3D04 /* ChecklistViewController.swift */,
+				2DB336CB2277684B007D3363 /* ItemDetailViewController.swift */,
+				2DB336D12277C34F007D3363 /* ListDetailViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		2D090C0B22797C31006FA633 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2DCC0DB8226E8BC600DC3D04 /* Assets.xcassets */,
+				2DCC0DBA226E8BC600DC3D04 /* LaunchScreen.storyboard */,
+				2DCC0DB5226E8BC500DC3D04 /* Main.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		2DCC0DA5226E8BC400DC3D04 = {
 			isa = PBXGroup;
 			children = (
@@ -66,17 +97,10 @@
 		2DCC0DB0226E8BC500DC3D04 /* Checklists */ = {
 			isa = PBXGroup;
 			children = (
+				2D090C0922797BF6006FA633 /* Data Models */,
+				2D090C0A22797C0D006FA633 /* View Controllers */,
+				2D090C0B22797C31006FA633 /* Resources */,
 				2DCC0DB1226E8BC500DC3D04 /* AppDelegate.swift */,
-				2DB336CD2277AEF9007D3363 /* AllListsViewController.swift */,
-				2DCC0DB3226E8BC500DC3D04 /* ChecklistViewController.swift */,
-				2DB336CB2277684B007D3363 /* ItemDetailViewController.swift */,
-				2DCC0DC3226F89F200DC3D04 /* ChecklistItem.swift */,
-				2DB336CF2277BC79007D3363 /* Checklist.swift */,
-				2D090C072278E2EA006FA633 /* DataModel.swift */,
-				2DB336D12277C34F007D3363 /* ListDetailViewController.swift */,
-				2DCC0DB5226E8BC500DC3D04 /* Main.storyboard */,
-				2DCC0DB8226E8BC600DC3D04 /* Assets.xcassets */,
-				2DCC0DBA226E8BC600DC3D04 /* LaunchScreen.storyboard */,
 				2DCC0DBD226E8BC600DC3D04 /* Info.plist */,
 			);
 			path = Checklists;
