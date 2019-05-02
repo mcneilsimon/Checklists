@@ -21,11 +21,9 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
         /* The line below registers our cell identifier with the table view so that the table view
            knows which cell class should be used to create a new table view cell instance when a
            dequeue request comes in with that cell identifier instead of doing this in the storyboard */
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
-        
     }
     
-    //UIKit automatically calls this method after the view controller becomes visible
+    //UIKit automatically calls this method after the view controller becomes visible to screen, and the animation is complete
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationController?.delegate = self
@@ -38,18 +36,40 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
         }
     }
     
+    //viewWillAppear() is called before viewDidAppear(), when the view is about to become visible but the animation hasn't started yet.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
     //MARK:- TableView Data Source and Delegate methods
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataModel.lists.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+        
+        let cell: UITableViewCell!
+        
+        if let c = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) {
+            cell = c
+        } else {
+            cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellIdentifier)
+        }
         
         //Update cell information
         let checklist = dataModel.lists[indexPath.row]
         cell.textLabel!.text = checklist.name
         cell.accessoryType = .detailDisclosureButton
+        
+        let count = checklist.countUncheckedItems()
+        if checklist.items.count == 0 { //if array size is 0
+            cell.detailTextLabel!.text = "(No Items)"
+        } else { //if count is 0
+            //using ternary conditional operator (if count == 0 true : else)
+            cell.detailTextLabel!.text = count == 0 ? "All done!" : "\(count) Remaining"
+        }
+        cell.imageView!.image = UIImage(named: checklist.iconName)
         return cell
     }
     
@@ -92,23 +112,16 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     }
     
     func listDetailViewController(_ controller: ListDetailViewController, didFinishAdding checklist: Checklist) {
-        let newRowIndex = dataModel.lists.count
         dataModel.lists.append(checklist)
-    
-        let indexPath = IndexPath(row: newRowIndex, section: 0)
-        let indexPaths = [indexPath]
-        tableView.insertRows(at: indexPaths, with: .automatic)
+        dataModel.sortChecklist()	
+        tableView.reloadData()
         
         navigationController?.popViewController(animated: true)
     }
     
     func listDetailViewController(_ controller: ListDetailViewController, didFinishEditing checklist: Checklist) {
-        if let index = dataModel.lists.firstIndex(of: checklist) {
-            let indexPath = IndexPath(row: index, section: 0)
-            if let cell = tableView.cellForRow(at: indexPath) {
-                cell.textLabel!.text = checklist.name
-            }
-        }
+        dataModel.sortChecklist()
+        tableView.reloadData()
         navigationController?.popViewController(animated: true)
     }
     

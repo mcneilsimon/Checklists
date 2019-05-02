@@ -68,24 +68,6 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
         tableView.deleteRows(at: indexPaths, with: .automatic)
     }
     
-    //MARK:- Configure Methods
-    func configureCheckmark(for cell: UITableViewCell, with item: ChecklistItem) {
-        
-        let label = cell.viewWithTag(51) as! UILabel
-        
-        if item.checked {
-            label.text = "√"
-        } else {
-            label.text = ""
-        }
-    }
-    
-    func configureText(for cell: UITableViewCell, with item: ChecklistItem) {
-        let label = cell.viewWithTag(50) as! UILabel
-        label.text = item.text
-    }
-    
-    
     //MARK:- ItemDetailViewController Delegates
     func itemDetailViewControllerDidCancel(_ controller: ItemDetailViewController) {
         navigationController?.popViewController(animated: true)
@@ -112,6 +94,24 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
         }
         navigationController?.popViewController(animated: true)
     }
+    
+    //MARK:- Configure Methods
+    func configureCheckmark(for cell: UITableViewCell, with item: ChecklistItem) {
+        
+        let label = cell.viewWithTag(51) as! UILabel
+        
+        if item.checked {
+            label.text = "√"
+        } else {
+            label.text = ""
+        }
+    }
+    
+    func configureText(for cell: UITableViewCell, with item: ChecklistItem) {
+        let label = cell.viewWithTag(50) as! UILabel
+        label.text = item.text
+    }
+    
 }
 
 
