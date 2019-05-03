@@ -86,4 +86,16 @@ class DataModel {
     func sortChecklist() {
         lists.sort(by: {list1, list2 in return list1.name.localizedStandardCompare(list2.name) == .orderedAscending})
     }
+    
+    class func nextChecklistItemID() -> Int {
+        let userDefaults = UserDefaults.standard
+        let itemID = userDefaults.integer(forKey: "ChecklistItemID")
+        userDefaults.set(itemID + 1, forKey: "ChecklistItemID")
+        
+        /* userDefaults.synchronize() is to force UserDefaults to write these changes to the disk immediately
+           — that way, they won’t get lost if you kill the app from Xcode before it had a chance to save, or the app crashed for some reason.”
+        */
+        userDefaults.synchronize()
+        return itemID
+    }
 }

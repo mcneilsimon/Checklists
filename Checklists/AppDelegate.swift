@@ -7,19 +7,26 @@
 //
 
 import UIKit
+import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
     let dataModel = DataModel()
 
-
+    /* Application didFinishLaunchingWithOptions is called when the app starts up, it is the entry point for the app,
+        the first place in the code where you can do something after the app launches */
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        //create our data model instance in the AllListsViewController
         let navigationController = window!.rootViewController as! UINavigationController
         let controller = navigationController.viewControllers[0] as! AllListsViewController
         controller.dataModel = dataModel
+        
+        //Notification Authorization
+        let center = UNUserNotificationCenter.current()
+        center.delegate = self
+        
         return true
     }
 
@@ -50,6 +57,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //MARK:- Helper Methods
     func saveData() {
         dataModel.saveChecklists()
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        print("Received Local notification \(notification)")
     }
 }
 

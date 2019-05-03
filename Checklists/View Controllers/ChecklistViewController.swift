@@ -6,13 +6,14 @@
 //  Copyright © 2019 SimonMcNeil. All rights reserved.
 //
 
-/* Displays all the To Do items after selecting a category in the AllListView Controller */
+/* Displays all the To Do items after selecting a category in the AllListView Controller.
+   Note we set the label text through the tag ids that we set in the storyboard */
 import UIKit
 
 class ChecklistViewController: UITableViewController, ItemDetailViewControllerDelegate {
     
     var checklist: Checklist!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.largeTitleDisplayMode = .never
@@ -46,6 +47,7 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
         let item = checklist.items[indexPath.row]
         
         configureText(for: cell, with: item)
+        configureDueDate(for: cell, with: item)
         configureCheckmark(for: cell, with: item)
         return cell
     }
@@ -74,13 +76,9 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
     }
     
     func itemDetailViewController(_ controller: ItemDetailViewController, didFinishAdding item: ChecklistItem) {
-        let newRowIndex = checklist.items.count
         checklist.items.append(item)
         
-        let indexPath = IndexPath(row: newRowIndex, section: 0)
-        let indexPaths = [indexPath]
-        tableView.insertRows(at: indexPaths, with: .automatic)
-        
+        tableView.reloadData()
         navigationController?.popViewController(animated: true)
     }
     
@@ -90,6 +88,7 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
             let indexPath = IndexPath(row: index, section: 0)
             if let cell = tableView.cellForRow(at: indexPath) {
                 configureText(for: cell, with: item)
+                configureDueDate(for: cell, with: item)
             }
         }
         navigationController?.popViewController(animated: true)
@@ -112,6 +111,16 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
         label.text = item.text
     }
     
+    func configureDueDate(for cell: UITableViewCell, with item: ChecklistItem) {
+        let dueDateLabel = cell.viewWithTag(52) as! UILabel
+        
+        let dueDateString = item.dueDate
+        
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        dueDateLabel.text = formatter.string(from: dueDateString)
+    }
 }
 
 
